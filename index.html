@@ -45,12 +45,12 @@ section,footer{background:var(--bg)}
 .hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden;text-align:center}
 #stars{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
 .aurora{position:absolute;inset:0;pointer-events:none;
-  background:radial-gradient(60% 45% at 50% 62%,rgba(46,140,98,.38),transparent 70%),radial-gradient(40% 35% at 30% 40%,rgba(40,110,90,.18),transparent 70%),radial-gradient(35% 30% at 72% 38%,rgba(60,90,150,.16),transparent 70%);
+  background:radial-gradient(60% 45% at 50% 62%,rgba(40,105,230,.40),transparent 70%),radial-gradient(40% 35% at 30% 40%,rgba(35,80,180,.18),transparent 70%),radial-gradient(35% 30% at 72% 38%,rgba(60,110,220,.16),transparent 70%);
   animation:breathe 9s ease-in-out infinite alternate}
 @keyframes breathe{from{opacity:.75}to{opacity:1}}
 .horizon{position:absolute;left:-30%;right:-30%;top:74%;height:120%;border-radius:50%;background:var(--bg);
-  border-top:1.5px solid rgba(255,255,255,.95);
-  box-shadow:0 -2px 18px rgba(255,255,255,.55),0 -24px 90px rgba(190,255,225,.22),inset 0 26px 60px -20px rgba(255,255,255,.18)}
+  border-top:1.5px solid rgba(225,238,255,.97);
+  box-shadow:0 -2px 18px rgba(170,205,255,.65),0 -24px 90px rgba(70,140,255,.38),inset 0 26px 60px -20px rgba(150,190,255,.18)}
 .hero-in{position:relative;z-index:2;padding:120px 24px 22vh;max-width:760px}
 @media(max-width:760px){.horizon{left:-140%;right:-140%;top:80%}.hero-in{padding:110px 20px 26vh}}
 .mark{width:110px;height:110px;margin:0 auto 22px;display:grid;place-items:center;perspective:500px}
@@ -208,7 +208,7 @@ a.cert:hover .go span{transform:translate(2px,-2px)}
 
 /* footer */
 footer{position:relative;margin-top:120px;padding:70px 0 40px;text-align:center;overflow:hidden}
-footer .glow{position:absolute;left:-20%;right:-20%;top:0;height:200px;border-radius:50%;border-top:1px solid rgba(255,255,255,.35);box-shadow:0 -10px 60px rgba(190,255,225,.10);pointer-events:none}
+footer .glow{position:absolute;left:-20%;right:-20%;top:0;height:200px;border-radius:50%;border-top:1px solid rgba(255,255,255,.35);box-shadow:0 -10px 60px rgba(70,140,255,.14);border-top-color:rgba(190,215,255,.35);pointer-events:none}
 footer .big{font-weight:600;font-size:clamp(26px,4vw,36px);letter-spacing:-1px;color:#d9dbde}
 footer p{color:var(--dim);font-size:13px;margin-top:10px}
 
