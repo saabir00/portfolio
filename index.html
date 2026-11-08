@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sabir Mehdikhanli — SOC Analyst</title>
+<meta name="description" content="Sabir Mehdikhanli — SOC Analyst and Blue Team specialist. SIEM, threat detection and incident response.">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230a0a0b'/%3E%3Cpath d='M32 6 52 13v18c0 13-9 22-20 27C21 53 12 44 12 31V13Z' fill='none' stroke='%23f2f4f5' stroke-width='3.6' stroke-linejoin='round'/%3E%3Cpath d='M28.5 22H20.5v8h8v8h4.5V22l5.5 8 5.5-8v16' fill='none' stroke='%23f2f4f5' stroke-width='3.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0a0a0b; --txt:#ededed; --mut:#8b9098; --dim:#5d626a;
+  --glass:rgba(255,255,255,.035); --line:rgba(255,255,255,.08); --line2:rgba(255,255,255,.14);
+  --acc:#7ee0b5; --acc2:#89b4ff;
+  --serif:'Instrument Serif',Georgia,serif; --sans:'Inter',system-ui,sans-serif; --mono:'JetBrains Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:transparent;color:var(--txt);font-family:var(--sans);line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+::selection{background:rgba(126,224,181,.25)}
+.wrap{max-width:980px;margin:0 auto;padding:0 24px}
+
+/* ---------- nav ---------- */
+nav{position:fixed;top:16px;left:50%;transform:translateX(-50%);z-index:20;display:flex;align-items:center;gap:6px;
+  padding:6px 8px 6px 10px;border-radius:999px;background:rgba(18,18,20,.55);border:1px solid var(--line);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.brand{display:flex;align-items:center;gap:9px;padding-right:10px;margin-right:4px;border-right:1px solid var(--line);font-size:14px;font-weight:500}
+.brand svg{width:24px;height:24px}
+nav a.l{font-size:13.5px;color:var(--mut);padding:7px 12px;border-radius:999px;transition:.2s}
+nav a.l:hover{color:var(--txt);background:rgba(255,255,255,.05)}
+nav a.cta{font-size:13.5px;font-weight:500;padding:7px 14px;border-radius:999px;background:var(--txt);color:#0a0a0b}
+@media(max-width:760px){nav a.l{display:none}.brand span{display:none}.brand{border:none;padding-right:2px}}
+
+/* ---------- video background ---------- */
+.bgv{position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:0;transition:opacity 3.2s ease}
+.bgv.on{opacity:var(--vo,1)}
+.bgv video{width:100%;height:100%;object-fit:cover;filter:saturate(1.05)}
+.bgv::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 45%,rgba(10,10,11,.15),rgba(10,10,11,.75) 75%),linear-gradient(rgba(10,10,11,.25),rgba(10,10,11,.55))}
+html{background:var(--bg)}
+section,footer{background:var(--bg)}
+.aurora{transition:opacity 3.2s ease}
+.video-on .aurora{opacity:0!important;animation:none}
+
+/* ---------- hero ---------- */
+.hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden;text-align:center}
+#stars{position:absolute;inset:0;width:100%;height:100%}
+.aurora{position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(60% 45% at 50% 62%,rgba(46,140,98,.38),transparent 70%),radial-gradient(40% 35% at 30% 40%,rgba(40,110,90,.18),transparent 70%),radial-gradient(35% 30% at 72% 38%,rgba(60,90,150,.16),transparent 70%);
+  animation:breathe 9s ease-in-out infinite alternate}
+@keyframes breathe{from{opacity:.75}to{opacity:1}}
+.horizon{position:absolute;left:-30%;right:-30%;top:74%;height:120%;border-radius:50%;background:var(--bg);
+  border-top:1.5px solid rgba(255,255,255,.95);
+  box-shadow:0 -2px 18px rgba(255,255,255,.55),0 -24px 90px rgba(190,255,225,.22),inset 0 26px 60px -20px rgba(255,255,255,.18)}
+.hero-in{position:relative;z-index:2;padding:120px 24px 22vh;max-width:760px}
+@media(max-width:760px){.horizon{left:-140%;right:-140%;top:80%}.hero-in{padding:110px 20px 26vh}}
+.mark{width:110px;height:110px;margin:0 auto 22px;display:grid;place-items:center;perspective:500px}
+.tilt{transform-style:preserve-3d;animation:tilt 9s ease-in-out 4.2s infinite}
+@keyframes tilt{0%,100%{transform:rotateY(-9deg) rotateX(4deg)}50%{transform:rotateY(9deg) rotateX(-3deg)}}
+.logo-anim{width:96px;height:96px;overflow:visible}
+.logo-anim path{fill:none;stroke:#f2f4f5;stroke-linecap:round;stroke-linejoin:round}
+.logo-anim .lig{stroke-width:2.8;stroke-dasharray:1;stroke-dashoffset:1;animation:draw 2.2s cubic-bezier(.6,.05,.3,1) .5s forwards}
+.logo-anim .shd{stroke-width:2.8;stroke-dasharray:1;stroke-dashoffset:1;animation:draw 1.8s cubic-bezier(.6,.05,.3,1) 2.4s forwards}
+.logo-anim .sheen{stroke:#ffffff;stroke-width:3.4;stroke-dasharray:.08 .92;stroke-dashoffset:1;opacity:0;animation:sheen 4.5s linear 4.6s infinite}
+@keyframes draw{0%{opacity:1}to{stroke-dashoffset:0;opacity:1}}
+.logo-anim .lig,.logo-anim .shd{opacity:0}
+@keyframes sheen{0%{stroke-dashoffset:1;opacity:0}10%{opacity:.95}60%{opacity:.95}70%,100%{stroke-dashoffset:-.1;opacity:0}}
+.logo-anim{filter:drop-shadow(0 0 0 rgba(170,220,255,0));animation:glowin 1.6s ease 4s forwards,glow 4s ease-in-out 5.6s infinite}
+@keyframes glowin{to{filter:drop-shadow(0 0 6px rgba(190,225,255,.55)) drop-shadow(0 0 18px rgba(140,190,255,.25))}}
+@keyframes glow{0%,100%{filter:drop-shadow(0 0 6px rgba(190,225,255,.55)) drop-shadow(0 0 18px rgba(140,190,255,.25))}50%{filter:drop-shadow(0 0 9px rgba(210,235,255,.75)) drop-shadow(0 0 28px rgba(150,170,255,.35))}}
+.brand svg{filter:drop-shadow(0 0 4px rgba(190,225,255,.35))}
+@media(prefers-reduced-motion:reduce){.logo-anim .lig,.logo-anim .shd{animation:none;stroke-dashoffset:0}.logo-anim .sheen{display:none}.tilt{animation:none}.logo-anim{animation:none;filter:drop-shadow(0 0 6px rgba(190,225,255,.5))}}
+.status{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;color:var(--mut);padding:5px 12px;border-radius:999px;border:1px solid var(--line);background:var(--glass);margin-bottom:22px}
+.dot{width:6px;height:6px;border-radius:50%;background:var(--acc);box-shadow:0 0 8px var(--acc);animation:pulse 2s infinite}
+@keyframes pulse{50%{opacity:.35}}
+h1{font-family:var(--serif);font-style:italic;font-weight:400;font-size:clamp(54px,9vw,104px);line-height:1;letter-spacing:-1px;text-shadow:0 0 40px rgba(255,255,255,.12)}
+.role{margin-top:18px;font-size:clamp(16px,2.2vw,19px);color:#c9ccd2}
+.role b{font-weight:500;color:var(--txt)}
+.lead{margin:10px auto 0;max-width:520px;color:var(--mut);font-size:15.5px}
+.pill{display:inline-flex;gap:6px;margin-top:30px;padding:6px;border-radius:14px;background:rgba(255,255,255,.05);border:1px solid var(--line2);backdrop-filter:blur(10px)}
+.btn{display:inline-flex;align-items:center;gap:8px;font:500 14.5px var(--sans);padding:11px 20px;border-radius:10px;border:none;cursor:pointer;transition:.2s;color:var(--txt);background:transparent}
+.btn:hover{background:rgba(255,255,255,.06)}
+.btn.light{background:#e9e9ea;color:#0a0a0b}
+.btn.light:hover{background:#fff}
+.scroll-hint{position:absolute;bottom:22px;left:50%;transform:translateX(-50%);z-index:2;font-size:12px;color:var(--dim);letter-spacing:.5px}
+
+/* ---------- sections ---------- */
+section{padding:110px 0 30px;position:relative}
+.eyebrow{font-size:12.5px;color:var(--acc);letter-spacing:.4px;margin-bottom:10px}
+h2{font-family:var(--sans);font-weight:600;font-size:clamp(30px,4.4vw,44px);line-height:1.12;letter-spacing:-1.2px}
+.sub{color:var(--mut);max-width:560px;margin-top:12px;font-size:16px}
+.head{margin-bottom:40px}
+.center{text-align:center}.center .sub{margin-left:auto;margin-right:auto}
+.glass{background:var(--glass);border:1px solid var(--line);border-radius:18px}
+
+/* about */
+.about{display:grid;grid-template-columns:1.35fr 1fr;gap:22px}
+@media(max-width:820px){.about{grid-template-columns:1fr}}
+.about .txt{padding:28px;color:#c4c7cd;font-size:16px}
+.about .txt p+p{margin-top:14px}
+.facts{padding:10px 24px}
+.facts div{display:flex;justify-content:space-between;gap:14px;padding:12px 0;border-bottom:1px solid var(--line);font-size:14.5px}
+.facts div:last-child{border:none}
+.facts span:first-child{color:var(--mut)}
+.facts span:last-child{text-align:right}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:14px}
+@media(max-width:700px){.stats{grid-template-columns:repeat(2,1fr)}}
+.stat{padding:22px}
+.stat b{display:block;font-weight:500;font-size:34px;line-height:1.1;letter-spacing:-1px}
+.stat span{color:var(--mut);font-size:13.5px}
+
+/* skills */
+.skills{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media(max-width:900px){.skills{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.skills{grid-template-columns:1fr}}
+.card{padding:24px;transition:.35s}
+.card:hover{border-color:var(--line2);background:rgba(255,255,255,.05);transform:translateY(-3px)}
+.card .k{font-size:12px;color:var(--acc);margin-bottom:10px;letter-spacing:.3px}
+.card h3{font-weight:500;font-size:17px;margin-bottom:10px}
+.card ul{list-style:none;color:var(--mut);font-size:14px}
+.card li{padding-left:14px;position:relative;margin-bottom:7px}
+.card li::before{content:"";position:absolute;left:0;top:10px;width:4px;height:4px;border-radius:50%;background:var(--dim)}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
+.tag{font-size:12px;padding:3px 10px;border-radius:999px;border:1px solid var(--line);color:#b9bdc4}
+.marq{overflow:hidden;margin-top:40px;mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);-webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
+.marq-in{display:flex;gap:44px;width:max-content;animation:scroll 45s linear infinite;font-size:18px;font-weight:500;color:var(--dim)}
+@keyframes scroll{to{transform:translateX(-50%)}}
+
+/* certs */
+.certs{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
+a.cert{display:flex;flex-direction:column;padding:24px;transition:.35s;position:relative;overflow:hidden}
+a.cert::before{content:"";position:absolute;inset:-1px;border-radius:18px;background:radial-gradient(400px 120px at 50% 0%,rgba(126,224,181,.10),transparent 70%);opacity:0;transition:.35s}
+a.cert:hover{border-color:var(--line2);transform:translateY(-3px)}
+a.cert:hover::before{opacity:1}
+.cert .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+.cert .abbr{font:500 12px var(--mono);padding:4px 10px;border-radius:8px;border:1px solid var(--line2);color:var(--txt)}
+.cert .ok{font-size:12px;color:var(--acc);display:flex;gap:6px;align-items:center}
+.cert h3{font-weight:500;font-size:17px;line-height:1.35}
+.cert .iss{color:var(--mut);font-size:14px;margin-top:3px}
+.cert .meta{font:12px var(--mono);color:var(--dim);margin-top:14px;word-break:break-all}
+.cert .go{margin-top:auto;padding-top:18px;font-size:13.5px;color:#c9ccd2;display:flex;align-items:center;gap:6px}
+a.cert:hover .go{color:var(--txt)}
+.cert .go span{transition:.25s}
+a.cert:hover .go span{transform:translate(2px,-2px)}
+
+/* journey */
+.two{display:grid;grid-template-columns:1.2fr 1fr;gap:22px}
+@media(max-width:820px){.two{grid-template-columns:1fr}}
+.tl{padding:28px 28px 8px}
+.tl-item{position:relative;padding-left:26px;padding-bottom:26px}
+.tl-item::before{content:"";position:absolute;left:4px;top:8px;bottom:-4px;width:1px;background:var(--line2)}
+.tl-item:last-child::before{display:none}
+.tl-item::after{content:"";position:absolute;left:0;top:6px;width:9px;height:9px;border-radius:50%;background:var(--bg);border:1px solid var(--acc)}
+.tl-item .when{font-size:12.5px;color:var(--acc)}
+.tl-item h3{font-weight:500;font-size:17px;margin-top:2px}
+.tl-item .where{color:#c4c7cd;font-size:14.5px}
+.tl-item p{color:var(--mut);font-size:14px;margin-top:4px}
+.side{padding:28px}
+.side h4{font-weight:600;font-size:17px;margin-bottom:14px}
+.bars div{margin-bottom:14px}
+.bars .lbl{display:flex;justify-content:space-between;font-size:14.5px;margin-bottom:6px}
+.bars .lbl span:last-child{color:var(--mut);font-size:13px}
+.bar{height:3px;background:var(--line);border-radius:3px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--acc),var(--acc2));transition:width 1.4s ease}
+.soft{display:flex;flex-wrap:wrap;gap:8px}
+.soft span{font-size:13.5px;padding:6px 13px;border-radius:999px;border:1px solid var(--line);color:#c4c7cd}
+
+/* hire */
+.hire{max-width:680px;margin:0 auto;padding:34px}
+.offers{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:-6px 0 28px}
+.offers span{font-size:13px;padding:6px 13px;border-radius:999px;border:1px solid var(--line);color:#c4c7cd;background:rgba(255,255,255,.02)}
+.hform{display:grid;gap:12px}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:560px){.frow{grid-template-columns:1fr}.hire{padding:22px}}
+.hform input,.hform select,.hform textarea{width:100%;background:rgba(0,0,0,.35);border:1px solid var(--line);border-radius:12px;padding:13px 15px;color:var(--txt);font:15px var(--sans);outline:none;resize:vertical;transition:.2s}
+.hform select{appearance:none;-webkit-appearance:none;background-image:linear-gradient(45deg,transparent 50%,#8b9098 50%),linear-gradient(135deg,#8b9098 50%,transparent 50%);background-position:calc(100% - 20px) 55%,calc(100% - 15px) 55%;background-size:5px 5px;background-repeat:no-repeat}
+.hform option{background:#141416}
+.hform input::placeholder,.hform textarea::placeholder{color:var(--dim)}
+.hform input:focus,.hform select:focus,.hform textarea:focus{border-color:var(--line2);background:rgba(0,0,0,.5)}
+.hform .btn.light{justify-self:center;padding:13px 28px;margin-top:6px}
+.hform .btn:disabled{opacity:.6;cursor:default}
+.hidden-hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.ferr{color:#ec8b8b;font-size:13.5px;text-align:center;min-height:0}
+.fok,.fdone{display:none;text-align:center;padding:16px;border-radius:12px;border:1px solid var(--line2);background:rgba(255,255,255,.03)}
+.fok.show,.fdone.show{display:block}
+.fok b{color:var(--acc);font-weight:500}.fdone b{font-weight:500}
+.fok p,.fdone p{color:var(--mut);font-size:14px;margin-top:4px}
+.fdone .row{display:flex;gap:8px;justify-content:center;margin-top:12px;flex-wrap:wrap}
+.btn.ghost{border:1px solid var(--line2)}
+.direct{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:26px}
+.direct a,.direct button{font:14px var(--sans);color:var(--mut);padding:9px 16px;border-radius:999px;border:1px solid var(--line);background:none;cursor:pointer;transition:.2s}
+.direct a:hover,.direct button:hover{color:var(--txt);border-color:var(--line2)}
+
+/* footer */
+footer{position:relative;margin-top:120px;padding:70px 0 40px;text-align:center;overflow:hidden}
+footer .glow{position:absolute;left:-20%;right:-20%;top:0;height:200px;border-radius:50%;border-top:1px solid rgba(255,255,255,.35);box-shadow:0 -10px 60px rgba(190,255,225,.10);pointer-events:none}
+footer .big{font-weight:600;font-size:clamp(26px,4vw,36px);letter-spacing:-1px;color:#d9dbde}
+footer p{color:var(--dim);font-size:13px;margin-top:10px}
+
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(90px);background:#e9e9ea;color:#0a0a0b;font-size:14px;padding:10px 18px;border-radius:10px;transition:.35s;z-index:50;font-weight:500}
+.toast.show{transform:translateX(-50%) translateY(0)}
+
+/* blur-in reveal */
+.reveal{opacity:0;filter:blur(10px);transform:translateY(14px);transition:opacity 1s ease,filter 1s ease,transform 1s ease}
+.reveal.in{opacity:1;filter:blur(0);transform:none}
+.d1{transition-delay:.12s}.d2{transition-delay:.24s}.d3{transition-delay:.36s}.d4{transition-delay:.48s}
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1;filter:none;transform:none;transition:none}.aurora,.marq-in,.dot{animation:none}}
+</style>
+</head>
+<body>
+
+<div class="bgv" id="bgv" aria-hidden="true"><video id="vid" muted loop playsinline preload="auto" src="bg.mp4"></video></div>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="logo" viewBox="0 0 64 64"><path d="M32 6 52 13v18c0 13-9 22-20 27C21 53 12 44 12 31V13Z" fill="none" stroke="#f2f4f5" stroke-width="2.8" stroke-linejoin="round"/><path d="M28.5 22H20.5v8h8v8h4.5V22l5.5 8 5.5-8v16" fill="none" stroke="#f2f4f5" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+</svg>
+
+<nav>
+  <a class="brand" href="#top"><svg><use href="#logo"/></svg><span>Sabir Mehdikhanli</span></a>
+  <a class="l" href="#about">About</a>
+  <a class="l" href="#skills">Skills</a>
+  <a class="l" href="#certs">Certificates</a>
+  <a class="l" href="#journey">Journey</a>
+  <a class="cta" href="#contact">Hire me</a>
+</nav>
+
+<header class="hero" id="top">
+  <canvas id="stars"></canvas>
+  <div class="aurora"></div>
+  <div class="horizon"></div>
+  <div class="hero-in">
+    <div class="mark" aria-label="SM logo"><div class="tilt"><svg viewBox="0 0 64 64" class="logo-anim">
+      <path class="lig" pathLength="1" d="M28.5 22H20.5v8h8v8h4.5V22l5.5 8 5.5-8v16"/>
+      <path class="shd" pathLength="1" d="M32 6 52 13v18c0 13-9 22-20 27C21 53 12 44 12 31V13Z"/>
+      <path class="sheen" pathLength="1" d="M32 6 52 13v18c0 13-9 22-20 27C21 53 12 44 12 31V13Z"/>
+    </svg></div></div>
+    <div class="status reveal d2"><span class="dot"></span>Open to SOC opportunities</div>
+    <h1 class="reveal d2">Sabir Mehdikhanli</h1>
+    <p class="role reveal d3"><b>SOC Analyst</b> · Blue Team Specialist</p>
+    <p class="lead reveal d3">I hunt through logs, build detections and use attacker knowledge to make defenses stronger.</p>
+    <div class="pill reveal d4">
+      <a class="btn" href="#certs">View certificates</a>
+      <a class="btn light" href="#contact">Hire me</a>
+    </div>
+  </div>
+  <div class="scroll-hint">scroll</div>
+</header>
+
+<section id="about"><div class="wrap">
+  <div class="head reveal"><div class="eyebrow">01 — About</div><h2>Defender by trade,<br>curious by nature.</h2></div>
+  <div class="about">
+    <div class="glass txt reveal">
+      <p>I am a dedicated cybersecurity professional and Blue Team specialist focusing on Security Operations Center (SOC) analysis and threat detection. I have hands-on experience with SIEM solutions (Splunk, QRadar, Wazuh), log analysis, cloud security and automation with Python and Bash.</p>
+      <p>Using my foundational knowledge of Red Team tactics, I identify vulnerabilities early and strengthen incident response. I enjoy solving complex security problems, sharpening my defensive skills and building resilient infrastructure.</p>
+    </div>
+    <div class="glass facts reveal d1">
+      <div><span>Role</span><span>SOC Analyst</span></div>
+      <div><span>Focus</span><span>Blue Team · Threat Detection</span></div>
+      <div><span>Location</span><span>Sumgait, Azerbaijan</span></div>
+      <div><span>University</span><span>Azerbaijan Technical University</span></div>
+      <div><span>Major</span><span>Information Security</span></div>
+      <div><span>Languages</span><span>AZ · EN (B2) · TR (B1)</span></div>
+    </div>
+  </div>
+  <div class="stats">
+    <div class="glass stat reveal"><b data-count="88.9" data-dec="1">0</b><span>University GPA</span></div>
+    <div class="glass stat reveal d1"><b data-count="564">0</b><span>University entry score</span></div>
+    <div class="glass stat reveal d2"><b data-count="5">0</b><span>Security certificates</span></div>
+    <div class="glass stat reveal d3"><b data-count="3">0</b><span>SIEM platforms</span></div>
+  </div>
+</div></section>
+
+<section id="skills"><div class="wrap">
+  <div class="head reveal"><div class="eyebrow">02 — Skills</div><h2>What I work with.</h2><p class="sub">Defensive operations first, with enough offensive knowledge to think like the attacker.</p></div>
+  <div class="skills">
+    <div class="glass card reveal"><div class="k">Blue Team</div><h3>SOC Operations</h3><ul>
+      <li>Log monitoring, correlation, alerting and investigation in Splunk, QRadar and Wazuh</li>
+      <li>Sysmon, WinCollect and Wazuh agents, FIM and Active Response</li>
+      <li>Threat detection and incident response on Windows and Linux logs</li>
+      <li>VirusTotal integrations and detection engineering</li></ul>
+      <div class="tags"><span class="tag">Splunk</span><span class="tag">QRadar</span><span class="tag">Wazuh</span><span class="tag">Sysmon</span></div></div>
+    <div class="glass card reveal d1"><div class="k">Intelligence</div><h3>Threat Intelligence</h3><ul>
+      <li>CTI, OSINT methods and MITRE ATT&amp;CK mapping</li>
+      <li>Cyber Kill Chain, persistence, credential access and defense evasion</li>
+      <li>Malware classification and attack lifecycle analysis</li></ul>
+      <div class="tags"><span class="tag">MITRE ATT&amp;CK</span><span class="tag">OSINT</span><span class="tag">CTI</span></div></div>
+    <div class="glass card reveal d2"><div class="k">Red Team</div><h3>Penetration Testing</h3><ul>
+      <li>Recon with Nmap, Gobuster, Dirb, FFUF, Amass and Sublist3r</li>
+      <li>SQLi and XSS in TryHackMe and lab environments</li>
+      <li>Reverse shells, C2 concepts, privilege escalation, lateral movement</li>
+      <li>AD attacks: Kerberos, Silver and Diamond Tickets</li></ul>
+      <div class="tags"><span class="tag">Nmap</span><span class="tag">FFUF</span><span class="tag">TryHackMe</span></div></div>
+    <div class="glass card reveal"><div class="k">Network</div><h3>Networking &amp; Traffic</h3><ul>
+      <li>TCP/IP, OSI, DNS, DHCP, NAT, SMB and routing</li>
+      <li>Packet and traffic analysis with Wireshark</li>
+      <li>Investigating suspicious traffic patterns</li></ul>
+      <div class="tags"><span class="tag">Wireshark</span><span class="tag">TCP/IP</span></div></div>
+    <div class="glass card reveal d1"><div class="k">Windows</div><h3>Windows Server &amp; AD</h3><ul>
+      <li>Domain Controllers, Active Directory and GPO management</li>
+      <li>DNS, DHCP, File Server, WDS, WSUS, LDAP and NTFS permissions</li>
+      <li>Event Viewer and Advanced Audit Logging</li></ul>
+      <div class="tags"><span class="tag">AD</span><span class="tag">GPO</span><span class="tag">WSUS</span></div></div>
+    <div class="glass card reveal d2"><div class="k">Linux</div><h3>Linux Administration</h3><ul>
+      <li>Users, permissions, logging and firewall management</li>
+      <li>Syslog, Journald, SELinux, Auditd and sudoers</li>
+      <li>Apache, Nginx and Linux hardening</li></ul>
+      <div class="tags"><span class="tag">Auditd</span><span class="tag">SELinux</span><span class="tag">Bash</span><span class="tag">Python</span></div></div>
+  </div>
+  <div class="marq"><div class="marq-in" id="marq"></div></div>
+</div></section>
+
+<section id="certs"><div class="wrap">
+  <div class="head reveal"><div class="eyebrow">03 — Certificates</div><h2>Verified, not just claimed.</h2><p class="sub">Every card opens the official verification page.</p></div>
+  <div class="certs">
+    <a class="glass cert reveal" href="https://labs.cyberwarfare.live/credential/achievement/6ae1d8dd7bd2ad906548c289" target="_blank" rel="noopener">
+      <div class="top"><span class="abbr">CBTF</span><span class="ok">● Verified</span></div>
+      <h3>Certified Blue Team Fundamentals</h3><div class="iss">CyberWarFare Labs · Oct 2026</div>
+      <div class="meta">ID 6ae1d8dd7bd2ad906548c289</div>
+      <div class="tags"><span class="tag">Digital Forensics</span><span class="tag">SIEM Analysis</span><span class="tag">Query Development</span></div>
+      <div class="go">Verify credential <span>↗</span></div></a>
+    <a class="glass cert reveal d1" href="https://hackviser.com/verify?id=HV-CORE-ZM2S1OY0" target="_blank" rel="noopener">
+      <div class="top"><span class="abbr">CCF</span><span class="ok">● Verified</span></div>
+      <h3>Certified Cybersecurity Foundations</h3><div class="iss">Hackviser · Oct 2026</div>
+      <div class="meta">ID HV-CORE-ZM2S1OY0</div>
+      <div class="tags"><span class="tag">Security Fundamentals</span></div>
+      <div class="go">Verify credential <span>↗</span></div></a>
+    <a class="glass cert reveal d2" href="https://millisec.edu.az/certificates/VI5IN3R" target="_blank" rel="noopener">
+      <div class="top"><span class="abbr">BTS</span><span class="ok">● Verified</span></div>
+      <h3>Blue Team Specialist</h3><div class="iss">MilliSec · Aug 2026</div>
+      <div class="meta">ID VI5IN3R</div>
+      <div class="tags"><span class="tag">Malware Analysis</span><span class="tag">Network Security</span></div>
+      <div class="go">Verify credential <span>↗</span></div></a>
+    <a class="glass cert reveal" href="https://elearning.centri.org/home/certificate/315382092" target="_blank" rel="noopener">
+      <div class="top"><span class="abbr">BTJA</span><span class="ok">● Verified</span></div>
+      <h3>Blue Team Junior Analyst</h3><div class="iss">CENTRI</div>
+      <div class="meta">ID 315382092</div>
+      <div class="tags"><span class="tag">Blue Team</span><span class="tag">SOC Analysis</span></div>
+      <div class="go">Verify credential <span>↗</span></div></a>
+    <a class="glass cert reveal d1" href="https://coursera.org/verify/P36JP387NOC3" target="_blank" rel="noopener">
+      <div class="top"><span class="abbr">EHK</span><span class="ok">● Verified</span></div>
+      <h3>Ethical Hacking with Kali Linux</h3><div class="iss">Coursera</div>
+      <div class="meta">ID P36JP387NOC3</div>
+      <div class="tags"><span class="tag">Kali Linux</span><span class="tag">Penetration Testing</span></div>
+      <div class="go">Verify credential <span>↗</span></div></a>
+  </div>
+</div></section>
+
+<section id="journey"><div class="wrap">
+  <div class="head reveal"><div class="eyebrow">04 — Journey</div><h2>Where I'm coming from.</h2></div>
+  <div class="two">
+    <div class="glass tl reveal">
+      <div class="tl-item"><div class="when">Ongoing</div><h3>Self Study</h3><div class="where">Labs · TryHackMe · Certifications</div>
+        <p>Continuous hands-on practice in home labs and online platforms: SIEM, digital forensics, malware analysis, network security and Red Team techniques.</p></div>
+      <div class="tl-item"><div class="when">Nov 2025 — Present</div><h3>Blue Team Student</h3><div class="where">MilliSec Course</div>
+        <p>Hands-on SIEM labs, detection engineering and incident response.</p></div>
+      <div class="tl-item"><div class="when">Education</div><h3>Information Security (taught in English)</h3><div class="where">Azerbaijan Technical University</div>
+        <p>GPA 88.9 · Entry score 564</p></div>
+    </div>
+    <div class="glass side reveal d1">
+      <h4>Languages</h4>
+      <div class="bars">
+        <div><div class="lbl"><span>Azerbaijani</span><span>Native</span></div><div class="bar"><i data-w="100"></i></div></div>
+        <div><div class="lbl"><span>English</span><span>B2</span></div><div class="bar"><i data-w="75"></i></div></div>
+        <div><div class="lbl"><span>Turkish</span><span>B1</span></div><div class="bar"><i data-w="60"></i></div></div>
+      </div>
+      <h4 style="margin-top:26px">Soft skills</h4>
+      <div class="soft"><span>Communication</span><span>Teamwork</span><span>Problem Solving</span><span>Time Management</span><span>Composure</span><span>Creativity</span></div>
+    </div>
+  </div>
+</div></section>
+
+<section id="contact"><div class="wrap">
+  <div class="head center reveal"><div class="eyebrow">05 — Hire me</div><h2>Let's work together.</h2>
+    <p class="sub">Looking for a SOC analyst or need help with a security task? Tell me about it and I'll get back to you.</p></div>
+  <div class="glass hire reveal d1">
+    <div class="offers"><span>SOC Analyst role</span><span>Internship</span><span>Freelance / Project</span><span>Collaboration</span></div>
+    <form class="hform" id="hform" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" novalidate>
+      <input type="hidden" name="form-name" value="contact">
+      <p class="hidden-hp" aria-hidden="true"><label>Leave empty<input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
+      <div class="frow">
+        <input name="name" required placeholder="Your name" aria-label="Your name">
+        <input name="email" type="email" required placeholder="Email address" aria-label="Email">
+      </div>
+      <div class="frow">
+        <input name="company" placeholder="Company (optional)" aria-label="Company">
+        <select name="type" aria-label="Opportunity type">
+          <option>SOC Analyst role</option><option>Internship</option><option>Freelance / Project</option><option>Collaboration</option><option>Other</option>
+        </select>
+      </div>
+      <textarea name="message" rows="5" required placeholder="Tell me about the role or project, timeline and location / remote…" aria-label="Message"></textarea>
+      <div class="ferr" id="ferr"></div>
+      <button class="btn light" type="submit">Send inquiry</button>
+      <div class="fok" id="fok"><b>Message sent</b><p>Thanks! Your inquiry reached Sabir. He will get back to you by email soon.</p></div>
+      <div class="fdone" id="fdone"><b>Almost there</b>
+        <p>Open the message in your email app, or copy it and send it to mehdikhanlisabir@gmail.com.</p>
+        <div class="row"><a class="btn light" id="mailgo" href="#">Open in email</a><button class="btn ghost" type="button" id="copymsg">Copy message</button></div>
+      </div>
+    </form>
+  </div>
+  <div class="direct reveal">
+    <button data-copy="mehdikhanlisabir@gmail.com">mehdikhanlisabir@gmail.com</button>
+    <a href="https://www.linkedin.com/in/sabir-mehdikhanli" target="_blank" rel="noopener">LinkedIn ↗</a>
+    <a href="https://github.com/saabir00" target="_blank" rel="noopener">GitHub ↗</a>
+  </div>
+</div></section>
+
+<footer>
+  <div class="glow"></div>
+  <div class="big reveal">Stay secure.</div>
+  <p>© 2026 Sabir Mehdikhanli · Sumgait, Azerbaijan</p>
+</footer>
+<div class="toast" id="toast"></div>
+
+<script>
+/* stars */
+(function(){
+  const cv=document.getElementById('stars'),ctx=cv.getContext('2d');let W,H,stars=[];
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function size(){const r=devicePixelRatio||1;W=cv.offsetWidth;H=cv.offsetHeight;cv.width=W*r;cv.height=H*r;ctx.setTransform(r,0,0,r,0,0);
+    stars=Array.from({length:Math.round(W*H/7000)},()=>({x:Math.random()*W,y:Math.random()*H*.78,r:Math.random()*1.1+.2,a:Math.random(),s:Math.random()*.012+.003}))}
+  function draw(){ctx.clearRect(0,0,W,H);for(const s of stars){s.a+=s.s;const o=.25+.6*Math.abs(Math.sin(s.a));ctx.fillStyle=`rgba(255,255,255,${o})`;ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,6.283);ctx.fill()}
+    if(!reduce)requestAnimationFrame(draw)}
+  addEventListener('resize',size);size();draw();
+})();
+
+/* video background: fade in slowly, fade out on scroll */
+(function(){
+  const wrap=document.getElementById('bgv'),v=document.getElementById('vid');
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches){wrap.remove();return}
+  const start=()=>{v.play().then(()=>{setTimeout(()=>{wrap.classList.add('on');document.body.classList.add('video-on');setTimeout(()=>wrap.style.transition='opacity .2s linear',3400)},700)}).catch(()=>{})};
+  if(v.readyState>=3)start();else v.addEventListener('canplay',start,{once:true});
+  let ticking=false;
+  function upd(){const h=innerHeight;const p=Math.min(Math.max(scrollY/(h*.85),0),1);
+    wrap.style.setProperty('--vo',(1-p).toFixed(3));
+    if(p>=1){if(!v.paused)v.pause()}else if(v.paused&&wrap.classList.contains('on'))v.play().catch(()=>{});
+    ticking=false}
+  addEventListener('scroll',()=>{if(!ticking){ticking=true;requestAnimationFrame(upd)}},{passive:true});upd();
+})();
+
+/* marquee */
+const tools=["Splunk","IBM QRadar","Wazuh","Sysmon","Wireshark","Nmap","FFUF","Amass","VirusTotal","MITRE ATT&CK","Python","Bash","Active Directory","Auditd","SELinux","Nginx"];
+document.getElementById('marq').innerHTML=[...tools,...tools].map(t=>`<span>${t}</span>`).join('');
+
+/* reveal, counters, bars */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;const el=e.target;el.classList.add('in');
+  el.querySelectorAll('[data-count]').forEach(n=>{const end=+n.dataset.count,dec=+(n.dataset.dec||0);let t0=null;
+    const step=ts=>{t0=t0||ts;const p=Math.min((ts-t0)/1400,1);n.textContent=(end*(1-Math.pow(1-p,3))).toFixed(dec);if(p<1)requestAnimationFrame(step)};requestAnimationFrame(step)});
+  el.querySelectorAll('[data-w]').forEach(b=>b.style.width=b.dataset.w+'%');
+  io.unobserve(el)}),{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+document.querySelectorAll('.stat').forEach(el=>io.observe(el));
+
+/* toast */
+const toast=document.getElementById('toast');
+function showToast(t){toast.textContent=t;toast.classList.add('show');setTimeout(()=>toast.classList.remove('show'),2000)}
+document.querySelectorAll('[data-copy]').forEach(b=>b.addEventListener('click',async()=>{
+  try{await navigator.clipboard.writeText(b.dataset.copy);showToast('Email copied')}catch(e){showToast(b.dataset.copy)}}));
+
+/* hire form */
+const hf=document.getElementById('hform'),ferr=document.getElementById('ferr'),fdone=document.getElementById('fdone'),fok=document.getElementById('fok');
+let lastMsg='';
+hf.addEventListener('submit',async e=>{
+  e.preventDefault();
+  const f=Object.fromEntries(new FormData(hf));
+  if(!f.name.trim()||!f.message.trim()||!/^\S+@\S+\.\S+$/.test(f.email)){ferr.textContent='Please fill in your name, a valid email and a message.';return}
+  ferr.textContent='';
+  const btn=hf.querySelector('button[type=submit]');btn.disabled=true;btn.textContent='Sending…';
+  const subject=`[${f.type}] Inquiry from ${f.name}${f.company?' — '+f.company:''}`;
+  const body=`Hi Sabir,\n\n${f.message}\n\n—\nName: ${f.name}\nEmail: ${f.email}\nCompany: ${f.company||'-'}\nType: ${f.type}`;
+  lastMsg=`To: mehdikhanlisabir@gmail.com\nSubject: ${subject}\n\n${body}`;
+  document.getElementById('mailgo').href=`mailto:mehdikhanlisabir@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  try{
+    const r=await fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams(new FormData(hf)).toString()});
+    if(!r.ok)throw new Error(r.status);
+    hf.querySelectorAll('input:not([type=hidden]),textarea').forEach(i=>i.value='');
+    fok.classList.add('show');fdone.classList.remove('show');
+  }catch(err){fdone.classList.add('show');fok.classList.remove('show')}
+  btn.disabled=false;btn.textContent='Send inquiry';
+});
+document.getElementById('copymsg').addEventListener('click',async()=>{
+  try{await navigator.clipboard.writeText(lastMsg);showToast('Message copied')}catch(e){showToast('Copy failed — email: mehdikhanlisabir@gmail.com')}});
+</script>
+</body>
+</html>
