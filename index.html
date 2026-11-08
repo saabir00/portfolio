@@ -32,15 +32,14 @@ nav a.l:hover{color:var(--txt);background:rgba(255,255,255,.05)}
 nav a.cta{font-size:13.5px;font-weight:500;padding:7px 14px;border-radius:999px;background:var(--txt);color:#0a0a0b}
 @media(max-width:760px){nav a.l{display:none}.brand span{display:none}.brand{border:none;padding-right:2px}}
 
-/* ---------- video background ---------- */
-.bgv{position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:0;transition:opacity 3.2s ease}
-.bgv.on{opacity:var(--vo,1)}
-.bgv video{width:100%;height:100%;object-fit:cover;filter:saturate(1.05)}
-.bgv::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 45%,rgba(10,10,11,.15),rgba(10,10,11,.75) 75%),linear-gradient(rgba(10,10,11,.25),rgba(10,10,11,.55))}
+/* ---------- log stream background ---------- */
+.logs{position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:0;transition:opacity 2.5s ease;
+  -webkit-mask-image:radial-gradient(ellipse 46% 40% at 50% 47%,transparent 0%,rgba(0,0,0,.3) 60%,#000 100%);
+  mask-image:radial-gradient(ellipse 46% 40% at 50% 47%,transparent 0%,rgba(0,0,0,.3) 60%,#000 100%)}
+.logs.on{opacity:var(--vo,1)}
+.logs canvas{width:100%;height:100%;display:block}
 html{background:var(--bg)}
 section,footer{background:var(--bg)}
-.aurora{transition:opacity 3.2s ease}
-.video-on .aurora{opacity:0!important;animation:none}
 
 /* ---------- hero ---------- */
 .hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden;text-align:center}
@@ -224,7 +223,7 @@ footer p{color:var(--dim);font-size:13px;margin-top:10px}
 </head>
 <body>
 
-<div class="bgv" id="bgv" aria-hidden="true"><video id="vid" muted loop playsinline preload="auto" src="bg.mp4"></video></div>
+<div class="logs" id="logs" aria-hidden="true"><canvas id="logc"></canvas></div>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <symbol id="logo" viewBox="0 0 64 64"><path d="M32 6 52 13v18c0 13-9 22-20 27C21 53 12 44 12 31V13Z" fill="none" stroke="#f2f4f5" stroke-width="2.8" stroke-linejoin="round"/><path d="M28.5 22H20.5v8h8v8h4.5V22l5.5 8 5.5-8v16" fill="none" stroke="#f2f4f5" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
@@ -456,16 +455,44 @@ footer p{color:var(--dim);font-size:13px;margin-top:10px}
   addEventListener('resize',size);size();draw();
 })();
 
-/* video background: fade in slowly, fade out on scroll */
+/* log stream background: fades in on load, fades out on scroll */
 (function(){
-  const wrap=document.getElementById('bgv'),v=document.getElementById('vid');
-  const start=()=>{v.play().then(()=>{setTimeout(()=>{wrap.classList.add('on');document.body.classList.add('video-on');setTimeout(()=>wrap.style.transition='opacity .2s linear',3400)},700)}).catch(()=>{})};
-  if(v.readyState>=3)start();else v.addEventListener('canplay',start,{once:true});
+  const wrap=document.getElementById('logs'),cv=document.getElementById('logc'),ctx=cv.getContext('2d');
+  let W,H,cols=[],lh=19,visible=true,t=Date.now();
+  const pick=a=>a[Math.random()*a.length|0], n=(a,b)=>a+(Math.random()*(b-a+1)|0);
+  const ip=()=>pick(['10.0.','192.168.','172.16.'])+n(0,20)+'.'+n(2,254), ext=()=>n(23,212)+'.'+n(1,254)+'.'+n(1,254)+'.'+n(1,254);
+  const users=['administrator','svc_backup','j.smith','a.aliyev','root','guest','sql_svc'];
+  const hosts=['WS-0142','DC01','SRV-FS02','WEB-PROD','LNX-GW01','WS-0388'];
+  function ts(){t+=n(40,900);return new Date(t).toISOString().replace('T',' ').slice(0,23)}
+  function gen(){
+    const r=Math.random();
+    const L=[
+      ()=>[`${ts()}  sysmon   EventID=1  host=${pick(hosts)}  image=C:\\Windows\\System32\\${pick(['svchost.exe','cmd.exe','powershell.exe','rundll32.exe','wmic.exe'])}  user=${pick(users)}`,0],
+      ()=>[`${ts()}  winlog   EventCode=4624  Logon_Type=${pick([2,3,10])}  account=${pick(users)}  src=${ip()}  status=success`,0],
+      ()=>[`${ts()}  wazuh    rule=${n(5500,5760)}  level=${n(3,7)}  sshd[${n(1000,9999)}]: Accepted publickey for ${pick(users)} from ${ip()}`,0],
+      ()=>[`${ts()}  splunk   index=network  action=allowed  src=${ip()}  dst=${ext()}  dport=${pick([443,53,80,123])}  bytes=${n(200,90000)}`,0],
+      ()=>[`${ts()}  qradar   flow  ${ip()} -> ${ip()}  proto=${pick(['TCP','UDP'])}  app=${pick(['SMB','LDAP','DNS','Kerberos','RDP'])}`,0],
+      ()=>[`${ts()}  fim      ${pick(['/etc/passwd','/etc/ssh/sshd_config','C:\\Windows\\System32\\drivers\\etc\\hosts','/var/www/html/index.php'])}  checksum verified`,0],
+      ()=>[`${ts()}  dns      query=${pick(['update.microsoft.com','api.github.com','time.windows.com','cdn.jsdelivr.net','login.live.com'])}  client=${ip()}  rcode=NOERROR`,0],
+    ];
+    if(r<.06)return [`${ts()}  ALERT    EventCode=4625 x${n(12,60)}  account=${pick(users)}  src=${ext()}  MITRE T1110 Brute Force`,2];
+    if(r<.09)return [`${ts()}  ACTION   active-response firewall-drop  src=${ext()}  status=blocked`,1];
+    if(r<.11)return [`${ts()}  ALERT    rule=${n(100,999)}  powershell -enc detected  host=${pick(hosts)}  MITRE T1059.001`,2];
+    return pick(L)();
+  }
+  function size(){const r=devicePixelRatio||1;W=innerWidth;H=innerHeight;cv.width=W*r;cv.height=H*r;ctx.setTransform(r,0,0,r,0,0);
+    const c=W>1100?2:1;cols=Array.from({length:c},(_,i)=>({x:i*W/c+22,off:Math.random()*lh,sp:.22+i*.07,lines:Array.from({length:Math.ceil(H/lh)+2},gen)}))}
+  function draw(){
+    if(visible){ctx.clearRect(0,0,W,H);ctx.font='11.5px "JetBrains Mono", ui-monospace, monospace';ctx.textBaseline='top';
+      cols.forEach((c,ci)=>{ctx.save();ctx.beginPath();ctx.rect(c.x-22,0,W/cols.length-8,H);ctx.clip();c.off+=c.sp;if(c.off>=lh){c.off-=lh;c.lines.shift();c.lines.push(gen())}
+        c.lines.forEach(([txt,k],i)=>{const y=i*lh-c.off;
+          ctx.fillStyle=k===2?'rgba(236,139,139,.13)':k===1?'rgba(126,224,181,.12)':'rgba(205,212,222,.06)';
+          ctx.fillText(txt,c.x,y)});ctx.restore()})}
+    requestAnimationFrame(draw)}
+  addEventListener('resize',size);size();draw();
+  setTimeout(()=>{wrap.classList.add('on');setTimeout(()=>wrap.style.transition='opacity .2s linear',2600)},600);
   let ticking=false;
-  function upd(){const h=innerHeight;const p=Math.min(Math.max(scrollY/(h*.85),0),1);
-    wrap.style.setProperty('--vo',(1-p).toFixed(3));
-    if(p>=1){if(!v.paused)v.pause()}else if(v.paused&&wrap.classList.contains('on'))v.play().catch(()=>{});
-    ticking=false}
+  function upd(){const p=Math.min(Math.max(scrollY/(innerHeight*.85),0),1);wrap.style.setProperty('--vo',(1-p).toFixed(3));visible=p<1;ticking=false}
   addEventListener('scroll',()=>{if(!ticking){ticking=true;requestAnimationFrame(upd)}},{passive:true});upd();
 })();
 
