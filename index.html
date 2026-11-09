@@ -518,7 +518,7 @@ const io=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return
   el.querySelectorAll('[data-w]').forEach(b=>b.style.width=b.dataset.w+'%');
   io.unobserve(el)}),{threshold:.05,rootMargin:'0px 0px 8% 0px'});
 document.querySelectorAll('.head').forEach(h=>[...h.children].forEach((c,i)=>{c.classList.add('wipe');c.style.transitionDelay=(i*.18)+'s'}));
-document.querySelectorAll('.type').forEach(el=>{let i=0;const start=1.1;
+document.querySelectorAll('.type').forEach(el=>{let i=0;const start=.35;
   const wrap=n=>{[...n.childNodes].forEach(c=>{if(c.nodeType===3){const f=document.createDocumentFragment();
       [...c.textContent].forEach(ch=>{const sp=document.createElement('span');sp.className='ch';sp.setAttribute('aria-hidden','true');sp.textContent=ch;sp.style.transitionDelay=(start+i++*.045).toFixed(3)+'s';f.appendChild(sp)});c.replaceWith(f)}
     else wrap(c)})};wrap(el)});
