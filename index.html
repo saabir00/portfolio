@@ -221,10 +221,12 @@ footer p{color:var(--dim);font-size:13px;margin-top:10px}
 /* text wipe: left to right */
 .wipe{clip-path:inset(-10% 100% -10% 0);opacity:.15;transition:clip-path 1.2s cubic-bezier(.65,.05,.25,1),opacity 1.2s ease}
 .wipe.in{clip-path:inset(-10% -6% -10% -6%);opacity:1}
-/* name: each word rises from below */
+/* role: written letter by letter, left to right */
+.type .ch{display:inline-block;opacity:0;filter:blur(6px);transform:translateY(.15em);transition:opacity .5s ease,filter .5s ease,transform .5s ease;white-space:pre}
+.type.in .ch{opacity:1;filter:blur(0);transform:none}
+/* name: rises from below */
 .rise .m{display:inline-block;overflow:hidden;vertical-align:bottom;padding:.04em .1em .14em;margin:0 -.1em -.14em}
-.rise .m>span{display:inline-block;transform:translateY(110%);transition:transform 1.3s cubic-bezier(.2,.75,.2,1) .25s}
-.rise .m+.m>span{transition-delay:.42s}
+.rise .m>span{display:inline-block;transform:translateY(110%);transition:transform 1.4s cubic-bezier(.2,.75,.2,1) .2s}
 .rise.in .m>span{transform:none}
 .d1{transition-delay:.05s}.d2{transition-delay:.1s}.d3{transition-delay:.15s}.d4{transition-delay:.2s}
 </style>
@@ -258,7 +260,7 @@ footer p{color:var(--dim);font-size:13px;margin-top:10px}
     </svg></div></div>
     <div class="status wipe"><span class="dot"></span>Open to SOC opportunities</div>
     <h1 class="rise"><span class="m"><span>Sabir</span></span> <span class="m"><span>Mehdikhanli</span></span></h1>
-    <p class="role wipe" style="transition-delay:.7s"><b>SOC Analyst</b> · Blue Team Specialist</p>
+    <p class="role type" aria-label="SOC Analyst · Blue Team Specialist"><b>SOC Analyst</b> · Blue Team Specialist</p>
     <div class="pill reveal d4">
       <a class="btn" href="#certs">View certificates</a>
       <a class="btn light" href="#contact">Hire me</a>
@@ -516,7 +518,11 @@ const io=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return
   el.querySelectorAll('[data-w]').forEach(b=>b.style.width=b.dataset.w+'%');
   io.unobserve(el)}),{threshold:.05,rootMargin:'0px 0px 8% 0px'});
 document.querySelectorAll('.head').forEach(h=>[...h.children].forEach((c,i)=>{c.classList.add('wipe');c.style.transitionDelay=(i*.18)+'s'}));
-document.querySelectorAll('.reveal,.rise').forEach(el=>io.observe(el));
+document.querySelectorAll('.type').forEach(el=>{let i=0;const start=1.1;
+  const wrap=n=>{[...n.childNodes].forEach(c=>{if(c.nodeType===3){const f=document.createDocumentFragment();
+      [...c.textContent].forEach(ch=>{const sp=document.createElement('span');sp.className='ch';sp.setAttribute('aria-hidden','true');sp.textContent=ch;sp.style.transitionDelay=(start+i++*.045).toFixed(3)+'s';f.appendChild(sp)});c.replaceWith(f)}
+    else wrap(c)})};wrap(el)});
+document.querySelectorAll('.reveal,.rise,.type').forEach(el=>io.observe(el));
 /* clipped text can't be observed itself, so watch its parent and reveal its .wipe children */
 const wo=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;e.target.querySelectorAll(':scope > .wipe').forEach(c=>c.classList.add('in'));wo.unobserve(e.target)}),{threshold:.05,rootMargin:'0px 0px 8% 0px'});
 new Set([...document.querySelectorAll('.wipe')].map(w=>w.parentElement)).forEach(p=>wo.observe(p));
