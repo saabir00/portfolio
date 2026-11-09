@@ -218,6 +218,14 @@ footer p{color:var(--dim);font-size:13px;margin-top:10px}
 /* blur-in reveal */
 .reveal{opacity:0;filter:blur(6px);transform:translateY(10px);transition:opacity .45s ease-out,filter .45s ease-out,transform .45s ease-out}
 .reveal.in{opacity:1;filter:blur(0);transform:none}
+/* text wipe: left to right */
+.wipe{clip-path:inset(-10% 100% -10% 0);opacity:.15;transition:clip-path 1.2s cubic-bezier(.65,.05,.25,1),opacity 1.2s ease}
+.wipe.in{clip-path:inset(-10% -6% -10% -6%);opacity:1}
+/* name: each word rises from below */
+.rise .m{display:inline-block;overflow:hidden;vertical-align:bottom;padding:.04em .1em .14em;margin:0 -.1em -.14em}
+.rise .m>span{display:inline-block;transform:translateY(110%);transition:transform 1.3s cubic-bezier(.2,.75,.2,1) .25s}
+.rise .m+.m>span{transition-delay:.42s}
+.rise.in .m>span{transform:none}
 .d1{transition-delay:.05s}.d2{transition-delay:.1s}.d3{transition-delay:.15s}.d4{transition-delay:.2s}
 </style>
 </head>
@@ -248,9 +256,9 @@ footer p{color:var(--dim);font-size:13px;margin-top:10px}
       <path class="shd" pathLength="1" d="M32 6 52 13v18c0 13-9 22-20 27C21 53 12 44 12 31V13Z"/>
       <path class="sheen" pathLength="1" d="M32 6 52 13v18c0 13-9 22-20 27C21 53 12 44 12 31V13Z"/>
     </svg></div></div>
-    <div class="status reveal d2"><span class="dot"></span>Open to SOC opportunities</div>
-    <h1 class="reveal d2">Sabir Mehdikhanli</h1>
-    <p class="role reveal d3"><b>SOC Analyst</b> · Blue Team Specialist</p>
+    <div class="status wipe"><span class="dot"></span>Open to SOC opportunities</div>
+    <h1 class="rise"><span class="m"><span>Sabir</span></span> <span class="m"><span>Mehdikhanli</span></span></h1>
+    <p class="role wipe" style="transition-delay:.7s"><b>SOC Analyst</b> · Blue Team Specialist</p>
     <div class="pill reveal d4">
       <a class="btn" href="#certs">View certificates</a>
       <a class="btn light" href="#contact">Hire me</a>
@@ -260,7 +268,7 @@ footer p{color:var(--dim);font-size:13px;margin-top:10px}
 </header>
 
 <section id="about"><div class="wrap">
-  <div class="head reveal"><div class="eyebrow">01 — About</div><h2>Security operations, threat detection<br>and incident response.</h2></div>
+  <div class="head"><div class="eyebrow">01 — About</div><h2>Security operations, threat detection<br>and incident response.</h2></div>
   <div class="about">
     <div class="glass txt reveal">
       <p>I am a dedicated cybersecurity professional and Blue Team specialist focusing on Security Operations Center (SOC) analysis and threat detection. I have hands-on experience with SIEM solutions (Splunk, QRadar, Wazuh), log analysis, cloud security and automation with Python and Bash.</p>
@@ -284,7 +292,7 @@ footer p{color:var(--dim);font-size:13px;margin-top:10px}
 </div></section>
 
 <section id="skills"><div class="wrap">
-  <div class="head reveal"><div class="eyebrow">02 — Skills</div><h2>What I work with.</h2><p class="sub">Defensive operations first, with enough offensive knowledge to think like the attacker.</p></div>
+  <div class="head"><div class="eyebrow">02 — Skills</div><h2>What I work with.</h2><p class="sub">Defensive operations first, with enough offensive knowledge to think like the attacker.</p></div>
   <div class="skills">
     <div class="glass card reveal"><div class="k">Blue Team</div><h3>SOC Operations</h3><ul>
       <li>Log monitoring, correlation, alerting and investigation in Splunk, QRadar and Wazuh</li>
@@ -323,7 +331,7 @@ footer p{color:var(--dim);font-size:13px;margin-top:10px}
 </div></section>
 
 <section id="certs"><div class="wrap">
-  <div class="head reveal"><div class="eyebrow">03 — Certificates</div><h2>Verified, not just claimed.</h2><p class="sub">Every card opens the official verification page.</p></div>
+  <div class="head"><div class="eyebrow">03 — Certificates</div><h2>Verified, not just claimed.</h2><p class="sub">Every card opens the official verification page.</p></div>
   <div class="certs">
     <a class="glass cert reveal" href="https://labs.cyberwarfare.live/credential/achievement/6ae1d8dd7bd2ad906548c289" target="_blank" rel="noopener">
       <div class="top"><span class="abbr">CBTF</span><span class="ok">● Verified</span></div>
@@ -359,7 +367,7 @@ footer p{color:var(--dim);font-size:13px;margin-top:10px}
 </div></section>
 
 <section id="journey"><div class="wrap">
-  <div class="head reveal"><div class="eyebrow">04 — Journey</div><h2>Where I'm coming from.</h2></div>
+  <div class="head"><div class="eyebrow">04 — Journey</div><h2>Where I'm coming from.</h2></div>
   <div class="two">
     <div class="glass tl reveal">
       <div class="tl-item"><div class="when">Ongoing</div><h3>Self Study</h3><div class="where">Labs · TryHackMe · Certifications</div>
@@ -383,7 +391,7 @@ footer p{color:var(--dim);font-size:13px;margin-top:10px}
 </div></section>
 
 <section id="contact"><div class="wrap">
-  <div class="head center reveal"><div class="eyebrow">05 — Hiring</div><h2>Looking for a SOC Analyst?</h2>
+  <div class="head center"><div class="eyebrow">05 — Hiring</div><h2>Looking for a SOC Analyst?</h2>
     <p class="sub">I'm ready to join a security operations team as an L1 SOC Analyst or a Blue Team intern — and to grow fast inside it.</p></div>
 
   <div class="why">
@@ -400,7 +408,7 @@ footer p{color:var(--dim);font-size:13px;margin-top:10px}
     <div><span>Status</span><b class="ok-t"><span class="dot"></span>Open to opportunities</b></div>
   </div>
 
-  <div class="head center reveal" style="margin:70px 0 28px"><h2 style="font-size:clamp(24px,3vw,30px)">Have a role in mind?</h2>
+  <div class="head center" style="margin:70px 0 28px"><h2 style="font-size:clamp(24px,3vw,30px)">Have a role in mind?</h2>
     <p class="sub">Send me the details and I'll get back to you by email.</p></div>
 <div class="glass hire reveal d1">
     <form class="hform" id="hform" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" novalidate>
@@ -507,7 +515,11 @@ const io=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return
     const step=ts=>{t0=t0||ts;const p=Math.min((ts-t0)/1400,1);n.textContent=(end*(1-Math.pow(1-p,3))).toFixed(dec);if(p<1)requestAnimationFrame(step)};requestAnimationFrame(step)});
   el.querySelectorAll('[data-w]').forEach(b=>b.style.width=b.dataset.w+'%');
   io.unobserve(el)}),{threshold:.05,rootMargin:'0px 0px 8% 0px'});
-document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+document.querySelectorAll('.head').forEach(h=>[...h.children].forEach((c,i)=>{c.classList.add('wipe');c.style.transitionDelay=(i*.18)+'s'}));
+document.querySelectorAll('.reveal,.rise').forEach(el=>io.observe(el));
+/* clipped text can't be observed itself, so watch its parent and reveal its .wipe children */
+const wo=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;e.target.querySelectorAll(':scope > .wipe').forEach(c=>c.classList.add('in'));wo.unobserve(e.target)}),{threshold:.05,rootMargin:'0px 0px 8% 0px'});
+new Set([...document.querySelectorAll('.wipe')].map(w=>w.parentElement)).forEach(p=>wo.observe(p));
 document.querySelectorAll('.stat').forEach(el=>io.observe(el));
 
 /* toast */
